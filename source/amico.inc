@@ -1,0 +1,2281 @@
+/*
+ *
+ PUBLIC DOMAIN 2022
+ THIS CODE IS A HACKY MESS - READ IT AT YOUR OWN RISK!
+ *
+ */
+
+// changes here require a make clean!
+// this file is included in amico.c
+// #include "amico.h" not required
+
+
+
+#ifdef __ANDROID__
+// ANDROID uses CPP not C
+extern "C" {
+#endif
+
+
+
+#if 0 // update these in amico.h NOT HERE!
+
+#define AMICO_BOSSES 16 // count from 1
+
+#define MAX_SHILLS 50 // count from zero
+#define MAX_HATERS 50 // count from zero
+
+#define AMICO_NONE_BOSSES (MAX_SHILLS-AMICO_BOSSES) // count from 0 ( 0-34 none bosses)
+//#define SHARED_HEAD_SLOT 4
+
+#endif
+
+
+
+s8 g_LEVEL_FINISH_CHEAT[] = // 40chars *10		
+		"                                        x" //1 36
+		"       PLAY THE GAME AND FIND OUT!!!!!! x" //lvl:2 35
+		"                                        x" //3 39
+		"                                        x" //4
+		"                                        x" //5
+		"                                        x" //6
+		"                                        x" //7
+		"                                        x" //8
+		"                                        x" //9
+		"                                        x" //10
+		"                                        x" //11
+ 		"                                        x" //12
+		"                                        x" //13
+		;
+
+
+
+
+#ifdef INST_AMICO_TEXTURES
+
+signed char  g_SCROLL_TEXT_YOUTUBER_FLASH_SCREEN[] =
+		"             10-10 AMICO AGAIN          "
+		"             A 32BLIT EXCLUSIVE         "
+//		" LCASE: ARCHIVE.ORG/DETAILS/AMICOAGAIN "
+		"   LCASE GITHUB.COM/10-10-AMICO-AGAIN   "
+		"                                        "
+		"         10-10 AMICO AGAIN - A 32BLIT EXCLUSIVE - @ PUBLIC DOMAIN # FREEWARE @                                     "
+	    "        -  WARNING: CONTAINS STRONG STROBING EFFECTS AND BACKGROUND MUSIC CONTAINS OFFENSIVE LYRICS  -  NO WARRANTY OR LIABILITY IS GIVEN OR IMPLIED - USE AT OWN RISK -              "
+		"10-10 AMICO AGAIN - A 32BLIT EXCLUSIVE, IS AN ACTION GAME BASED ON TOMMY TALLARICO'S SOCIAL MARKETING FOR INTELLIVISION AMICO, A FAMILY FRIENDLY, E-RATED CONSOLE.         "
+	 	"32BLIT IS A FULLY FEATURED, RETRO-INSPIRED HANDHELD DEVELOPMENT CONSOLE THAT IS FULLY OPEN-SOURCE. THIS GAME IS NOT AFFILIATED OR REPRESENTATIVE OF PIMORONI OR THEIR PRODUCTS.  BUT THIS GAME CAN NOT BE AUTHENTICALLY EXPERIENCED ON OTHER DEVICES!"
+		"INSTRUCTIONS: SHOOT YOUR # TO YOUR FRIENDS AND ENEMIES, YOUR SHILL FRIENDS ARE VERY FAST TO HELP YOU AT FIRST, YOUR HATER FRIENDS GET FASTER THE MORE THEY CAN TRUST YOU, BUT DON'T LET YOUR ENEMIES HURT YOUR FRIENDS!    DON'T DILUTE THE CONVERSATION, YOU WILL BE REWARDED ON ACCURACY...    HIT SPACEBAR ON THE KEYBOARD, SHOULDERS OR ANALOG BUTTONS FOR TOMMY TO CLEAR THE AIR! @@@@@"
+		"@ YOUR PROGRESS IS AUTOMATICALLY SAVED AT THE START OF EACH WAVE  @              "
+		"THIS AMICO EXTRAVAGANZA CONTAINS TOMMY'S BEST SAYINGS, HYPNOTIC GENTLE AND STROBING L.E.D'S AND THE '10-10 AMICO AGAIN - A 32BLIT EXCLUSIVE' OFFICIAL SOUND TRACK        "
+		"NOW PREPARE TO BE MILDLY ENTERTAINED OVER 10 BUGGY LEVELS, DO BATTLE FOR AMICO CONSOLE JUSTICE TO UNLOCK ALL THE BIG AMICO BOSSES, AMICO SECRETS AND WIN # @ @ @ @ @ LAST AS LONG AS YOU WANT OR CAN,   MANY HOURS OF LITE AND THRILLING AMICO EXPERIENCES AWAITS YOU #                                        "
+		"DISCLAIMER: ALL TEXT IN THIS GAME IS FICTIONAL FOR ENTERTAINMENT PURPOSES ONLY AND ALL AUDIO SAMPLES EXCEPT FOR '10 10 AMICO AGAIN' ARE REAL STATEMENTS SOURCED FROM VARIOUS PUBLIC VIDEOS BUT USED WITHOUT CONTEXT AND IS ALSO NOT TO BE TAKEN LITERALLY!"
+		" --- DO YOUR OWN RESEARCH BEFORE FORMING ANY OPINIONS ---                                "
+		"CREDITS: GAME DESIGN, ART, AUDIO AND PROGRAMMING BY A HUMBLE GAMEDEV STUDENT.   -   ORIGINAL ART CREDIT: BIG MOUTH TOMMY IMAGE BY NINJA KITTY, MUSIC BY:  STREAMYARD COUNTDOWN TIMER WITH GAMERS UNITED GUILD INTRO, ALPHA NERD ENTERTAINMENT, EXTRASANDERSON, FRANCOIS TREMBLAY (MIXED BY NINJA KITTY), TOMMY AND THE AMICOS, EVIL KANEVIL, 420GAYMER.                                                    "
+		"ALL AVATARS, NAMES, IMAGES AND SOUNDS ARE COPYRIGHT OF THEIR RESPECTIVE OWNERS. FAIR USE: THIS IS A TRANSFORMATIVE, PARODY (RIDICULE) AND SATIRE/SPOOF (COMMENTARY AND CRITICISM) WORK... IT'S PURE PASTICHE AND NO MALICE IS INTENDED.              "
+		"BACKSTORY: THIS GAME IS A SIMULATION OF THE PEAK AMICO MADNESS AND A TRIBUTE TO ALL THE PEOPLE INVOLVED IN THE INTELLIVISION AMICO SAGA #                                               "
+		"ONE MAN'S VISION AND MISSION TO BE THE 4TH MAJOR CONSOLE IN THE VIDEO GAMING MARKET BY TARGETING IT'S 'BIG GAPING HOLE', A CONSOLE FOR THE CASUAL, NON-GAMERS CALLED- AMICO. FOUNDED BY TOMMY TALLARICO AND HIS COMPANY INTELLIVISION ENTERTAINMENT. WITH OVER 600 YEARS OF INDUSTRY EXPERIENCE, THEY DECIDED TO SKIP THE GAME DEVELOPMENT PHASE AND WENT STRAIGHT INTO CONSOLE HARDWARE DEVELOPMENT AND PUBLISHING, WHAT COULD POSSIBLY GO WRONG!!  @ # @ # @ # @ # @ # @ # @ # @ # @ # @ # @ # @ # @ # @ # @ # @ # @                                             "
+		"WHILE BEING PRESIDENT, CEO, AND CCO (LEAD GAME DESIGNER, WRITER AND MUSICIAN), TOMMY BEFRIENDED YOUTUBERS AND SPOKE ON MANY PODCASTS TO SPREAD HIS MESSAGE OF 'TOGETHER AGAIN', '10 COMMANDMENTS' AND SAFE, 'SIMPLE, AFFORDABLE, FAMILY, ENTERTAINMENT'. HE CLAIMED TO BE OPEN AND TRANSPARENT BUT SPOKE IN VAGUE AND NON COMMITTAL TERMS AND WASN'T ALWAYS CLEAR, LEAVING THE AUDIENCE WITH MORE QUESTIONS THEN ANSWERS. AND ALL THIS ATTRACTED HIM CRITICISM. BEING A LEGENDARY INDUSTRY ICON, HE CHOSE TO GET PERSONAL AND LASH OUT, WHICH HIS NEW FRIENDS WOULD PARROT, FUELING A DARK COMEDY, 'MICRO INFLUENCER' CULTURE WAR!             "
+		"BONUSODE: PROGRESS THROUGH THE LEVELS TO UNLOCK AMICO EXCLUSIVES CONTENT AND SECRETS!"
+		"(@) NOW CHOOSE A SIDE, YOUR FAVORITE PERSONALITY AND DO BATTLE IN PEAK AMICO MADNESS!  @ # @ # @ # @ # @ # @ # @ # @ # @ # @ # @ # @ # @ # @ # @ # @ # @  ####################################################################                                                     "
+		;
+
+
+
+
+
+
+
+
+
+
+t_data_head32 g_texture_map_shills[]=
+{
+		{  "ALPHA NERD ENTERTAINMENT" ,1,96,128}, //0
+		{  "CM RETRO GAMING" ,4,64,32}, //1
+		{  "RAYA" ,2,0,0}, //2
+		{  "BEN SILVER PONG" ,4,0,64}, //3
+		{  "RETRO GAMING R... ROUNDUP?" ,3,0,128}, //0-4 flippers
+		{  "BRIAN'S MAN CAVE" ,4,96,160}, //5
+		{  "SLOPES GAME ROOM" ,4,32,0}, //6
+		{ "ANTHIUM TWOTALES" ,4,64,128}, //7
+		{  "BRETT WEISS" ,3,32,0}, // 8
+		{  "PANDASUB2000" ,3,64,0}, //9
+		{  "RELIC GAMER" ,2,96,0}, //10
+		{  "SNESTASTIC / AMICO KID" ,2,32,0},
+		{  "VIDEOGAME VIRUS / AMICO JOY" ,2,64,64},
+		{  "THE RETRO BRO" ,1,96,96},
+		{  "THE ATARI CREEP" ,3,32,64},
+		{  "GEEKS WITH CASH" ,2,64,160},
+		{  "CROW CONTINUUM" ,3,96,224},
+		{  "SINISTERMOON" ,2,64,0},
+		{  "BRUTALLY HONEST GAMER" ,3,96,64},
+		{  "PAPA PETE" ,1,96,64}, //
+		{  "TURBO JOE" ,2,64,32}, // 20
+		{  "BACON ICE CREAM" ,2,96,32},
+		{  "TJ FERREIRA" ,1,32,64},
+		{  "PABLO THE POSSUM " ,1,96,160},
+		{  "ELECTRIC PLAYGROUND NETWORK" ,3,64,192},
+		{  "FRANCOIS TREMBLAY" ,1,0,96},
+		{  "GOGAMEGO" ,4,96,32},
+		{  "LEVEL 857" ,2,32,160},
+		{  "ESSEX RETRO GAMER" ,3,96,192},
+		{  "RETRO ADVISORY BOARD" ,4,32,96}, // 29
+		{  "THE REAL LAVON CASON" ,1,0,224}, //30
+		{  "INTELLIVISION DUDE" ,4,96,96},
+		{  "MOVIE MADNESS ENTERTAINMENT" ,1,0,192}, // 32
+		{  "shared shill slot" ,1,32,96}, //33 JOHN HANCOCKJ ohn riggs, metal jesus rocks
+		{  "LEVEL1ONLINE" ,2,64,192}, // 34 lvl 35 doxxers
+
+		{  "OEB PETE" ,2,32,64}, // 35 36 BOSSES lvl: 1 THUS +2
+		{  "SAGGY MELLONZ" ,1,64,192},// x8 on 2
+		{  "DJC GAME STUDIOS" ,1,64,96}, //3
+		{  "SMASH JT" ,2,96,96}, //  39 4
+		{  "THE ORIGINAL NEXT LEVEL GAMING" ,3,32,96},//38 lvl:5 journalists
+		{  "ATARI AGE" ,3,0,224}, // 40 6 age 6 android URL
+		{  "JOHN ALVARADO" ,1,32,0}, // 7
+		{  "PHIL ADAM" ,1,64,0}, //41 8
+		{  "GUIDO HENKEL" ,4,96,64}, //42 9
+		{  "NICK RICHARDS" ,1,64,32}, // 44 10
+		{  "HANS IPPISCH" ,1,96,32}, //45 lvl:11
+		{  "NEIL PATEL" ,1,0,64}, // 46 12
+		{  "DAVID PERRY" ,1,96,0}, // 47 13
+		{  "GOOD TOMMY TALLARICO" ,1,64,64}, // 48 14
+		{  "THE SECRET" , 4,	96,	128}, // 49 15
+		{  "GOOD AMICO SPIRIT" ,3,32,224}, // 50 16
+		{  "error g_texture_map_shills" ,0,0,0} //err
+
+};
+
+
+t_data_head32 g_texture_map_haters[]=
+{
+
+		{"CAPTAIN CARL", 1,0,128}, // 0
+		{"LUCKY DAY", 1,32,224},  // 1
+		{"LELANDERS", 1,64,224},  // 2
+		{"CANADIAN GAMER", 4,32,128}, //3
+		{"NO SWEAR GAMER", 3,96,128}, //0-4  flippers
+		{ "FRANK CIFALDI",1,96,224},// 5
+		{"GOOSE", 3,64,32}, //6
+		{"NINJA KITTY", 2,0,128}, // 7
+		{"LEO DS", 2,32,128},  // 8
+		{"SENSIBLE PERSON", 1,32,192}, // 9
+		{"DAYZED GAMING", 1,64,160}, // 10
+		{"TOMMY OUYAMICO", 1,64,128}, // 11
+		{"MR. TIGHT WHITE", 1,96,192}, // 12
+		{"SNEAKY V", 2,0,32}, // 13
+		{"AMICO DAY CHANNEL", 4,0,128}, //14
+		{"OCIMA VISION", 1,32,128}, //15
+		{"BOMERNEE TV", 2,0,160},
+		{"RADICAL RICK", 2,0,96},
+		{"EVIL KANEVIL", 2,64,96},
+		{"JENOVI", 3,64,128}, // 19
+		{"ALPHADOG", 3,96,0}, //20
+		{"GENERATION X GAMER", 3,64,96}, //
+		{"DVDFEVERGAMES ", 2,0,64}, //
+		{"HAYTHAM GRUXTON", 1,0,160}, //
+		{"AMICO DUDE", 3,96,96},//24
+		{"RAMBLING MAN", 4,64,64},//
+		{"DORKALICIOUS", 2,32,192}, //
+		{"FLAT EARTH VIDEO GAMER", 4,32,64},//
+		{"VICTOR VON HEIZEN FRUZEN", 3,64,224}, //
+		{"EXTRASANDERSON", 2,96,160}, //
+		{"ADAM3K3",2,64,128}, //30
+		{"GAMES JUST WANNA BE FUN", 4,0,96}, //
+		{"PLAYSWITHWOLVES", 4,64,96}, //
+		{"POTION SWORD RUN!", 2,96,64}, //
+		{"A VOLPE", 3,0,192}, // 34 doxxers
+
+		{"MADLITTLEPIXEL", 3,32,128}, //35 BOSSES lvl: 1 ----------------------------
+		{"KEVTRIS", 4,0,32}, //2
+		{"GIANT BOMB", 2,96,128},
+		{"DIGITAL FOUNDRY", 2,32,96},  // 4
+		{"THE GEEK GETAWAY", 3,32,192},  //39 5 journalists
+		{"AMICO AGE", 2,0,192},   //42 6 age 6 android URL
+		{"AMICO GAMES FOR YOU", 4,32,32},  // 40 7
+		{"DARIUS TRUXTON", 3,64,64},   // 41 8
+		{"KOTAKU", 2,96,192},   //43   9 // Guido Henkel
+		{"SAM MACHKOVECH - ARS", 4,64,0},   //44 10
+		{"RICH REVIEW TECH USA", 1,32,160},   //45 1
+		{"PAT THE NES PUNK", 3,96,32},   //46 12
+		{"MR TIPPING POINT" , 4, 32, 224},   //47
+		{"MR REALITY DISTORTION FIELD" , 4, 0, 224},   //48 14
+		{"BAD TOMMY TALLARICO", 1,32,32},   //49 15
+		{"EVIL AMICO SPIRIT", 3,32,32},   //50 16
+		{"error g_texture_map_haters", 0,0,0}   //err
+
+
+};
+
+
+
+
+#define MAP_ROW_00 !error!
+#define MAP_ROW_01 !error!
+
+
+#define MAP_00_ROW_02	4224
+#define MAP_00_ROW_03	397062
+#define MAP_00_ROW_04	460302
+#define MAP_00_ROW_05	249660
+#define MAP_00_ROW_06	121272
+#define MAP_00_ROW_07	118968
+#define MAP_00_ROW_08	0
+#define MAP_00_ROW_09	118968
+#define MAP_00_ROW_10	121272
+#define MAP_00_ROW_11	249660
+#define MAP_00_ROW_12	460302
+#define MAP_00_ROW_13	397062
+#define MAP_00_ROW_14	4224
+
+
+
+#define MAP_01_ROW_02	16
+#define MAP_01_ROW_03	482256
+#define MAP_01_ROW_04	20496
+#define MAP_01_ROW_05	20500
+#define MAP_01_ROW_06	905300
+#define MAP_01_ROW_07	4164
+#define MAP_01_ROW_08	245844
+#define MAP_01_ROW_09	24404
+#define MAP_01_ROW_10	4112
+#define MAP_01_ROW_11	266256
+#define MAP_01_ROW_12	266256
+#define MAP_01_ROW_13	509894
+#define MAP_01_ROW_14	0
+
+#define MAP_02_ROW_02	32784
+#define MAP_02_ROW_03	47568
+#define MAP_02_ROW_04	32784
+#define MAP_02_ROW_05	172116
+#define MAP_02_ROW_06	172116
+#define MAP_02_ROW_07	139332
+#define MAP_02_ROW_08	172116
+#define MAP_02_ROW_09	172116
+#define MAP_02_ROW_10	32784
+#define MAP_02_ROW_11	965079
+#define MAP_02_ROW_12	32784
+#define MAP_02_ROW_13	32784
+#define MAP_02_ROW_14	32784
+
+
+
+
+#define MAP_03_ROW_02	0
+#define MAP_03_ROW_03	522366
+#define MAP_03_ROW_04	399462
+#define MAP_03_ROW_05	522306
+#define MAP_03_ROW_06	2370
+#define MAP_03_ROW_07	518466
+#define MAP_03_ROW_08	420198
+#define MAP_03_ROW_09	272766
+#define MAP_03_ROW_10	272640
+#define MAP_03_ROW_11	270846
+#define MAP_03_ROW_12	418182
+#define MAP_03_ROW_13	516606
+#define MAP_03_ROW_14	0
+
+
+#define MAP_04_ROW_02	8224
+#define MAP_04_ROW_03	499758
+#define MAP_04_ROW_04	270378
+#define MAP_04_ROW_05	385066
+#define MAP_04_ROW_06	327690
+#define MAP_04_ROW_07	385146
+#define MAP_04_ROW_08	262146
+#define MAP_04_ROW_09	385146
+#define MAP_04_ROW_10	327690
+#define MAP_04_ROW_11	385066
+#define MAP_04_ROW_12	270378
+#define MAP_04_ROW_13	466990
+#define MAP_04_ROW_14	8224
+
+
+
+#define MAP_05_ROW_02	67848
+#define MAP_05_ROW_03	67848
+#define MAP_05_ROW_04	125304
+#define MAP_05_ROW_05	67848
+#define MAP_05_ROW_06	84264
+#define MAP_05_ROW_07	84264
+#define MAP_05_ROW_08	802851
+#define MAP_05_ROW_09	81960
+#define MAP_05_ROW_10	96744
+#define MAP_05_ROW_11	65544
+#define MAP_05_ROW_12	123000
+#define MAP_05_ROW_13	65544
+#define MAP_05_ROW_14	65544
+
+
+
+#define MAP_06_ROW_02	61680
+#define MAP_06_ROW_03	67848
+#define MAP_06_ROW_04	133380
+#define MAP_06_ROW_05	133380
+#define MAP_06_ROW_06	135300
+#define MAP_06_ROW_07	139332
+#define MAP_06_ROW_08	114744
+#define MAP_06_ROW_09	1536
+#define MAP_06_ROW_10	2304
+#define MAP_06_ROW_11	3840
+#define MAP_06_ROW_12	0
+#define MAP_06_ROW_13	8064
+#define MAP_06_ROW_14	14016
+
+
+
+
+#define MAP_07_ROW_02	0
+#define MAP_07_ROW_03	114744
+#define MAP_07_ROW_04	78024
+#define MAP_07_ROW_05	2304
+#define MAP_07_ROW_06	131076
+#define MAP_07_ROW_07	131076
+#define MAP_07_ROW_08	65544
+#define MAP_07_ROW_09	0
+#define MAP_07_ROW_10	32784
+#define MAP_07_ROW_11	0
+#define MAP_07_ROW_12	8256
+#define MAP_07_ROW_13	4224
+#define MAP_07_ROW_14	2048
+
+
+
+
+
+#define MAP_08_ROW_02	32784
+#define MAP_08_ROW_03	278562
+#define MAP_08_ROW_04	139332
+#define MAP_08_ROW_05	73608
+#define MAP_08_ROW_06	32784
+#define MAP_08_ROW_07	151716
+#define MAP_08_ROW_08	987279
+#define MAP_08_ROW_09	135300
+#define MAP_08_ROW_10	16416
+#define MAP_08_ROW_11	36624
+#define MAP_08_ROW_12	69768
+#define MAP_08_ROW_13	401478
+#define MAP_08_ROW_14	16416
+
+
+
+#define MAP_09_ROW_02	35088
+#define MAP_09_ROW_03	63984
+#define MAP_09_ROW_04	0
+#define MAP_09_ROW_05	981495
+#define MAP_09_ROW_06	166164
+#define MAP_09_ROW_07	166164
+#define MAP_09_ROW_08	166164
+#define MAP_09_ROW_09	166164
+#define MAP_09_ROW_10	166164
+#define MAP_09_ROW_11	981495
+#define MAP_09_ROW_12	0
+#define MAP_09_ROW_13	63984
+#define MAP_09_ROW_14	35088
+
+
+
+#if 0
+// 10
+#define MAP_10_ROW_02	0
+#define MAP_10_ROW_03	57408
+#define MAP_10_ROW_04	69744
+#define MAP_10_ROW_05	198776
+#define MAP_10_ROW_06	165996
+#define MAP_10_ROW_07	149600
+#define MAP_10_ROW_08	149600
+#define MAP_10_ROW_09	149600
+#define MAP_10_ROW_10	141408
+#define MAP_10_ROW_11	137312
+#define MAP_10_ROW_12	70136
+#define MAP_10_ROW_13	58364
+#define MAP_10_ROW_14	0
+#endif
+
+#define MAP_10_ROW_02	0
+#define MAP_10_ROW_03	260160
+#define MAP_10_ROW_04	202864
+#define MAP_10_ROW_05	198776
+#define MAP_10_ROW_06	165996
+#define MAP_10_ROW_07	149600
+#define MAP_10_ROW_08	149600
+#define MAP_10_ROW_09	149600
+#define MAP_10_ROW_10	141408
+#define MAP_10_ROW_11	202848
+#define MAP_10_ROW_12	203256
+#define MAP_10_ROW_13	261116
+#define MAP_10_ROW_14	0
+
+
+
+/*
+#define MAP_11_ROW_02	28736
+#define MAP_11_ROW_03	34928
+#define MAP_11_ROW_04	66680
+#define MAP_11_ROW_05	66668
+#define MAP_11_ROW_06	74848
+#define MAP_11_ROW_07	74816
+#define MAP_11_ROW_08	8192
+#define MAP_11_ROW_09	8224
+#define MAP_11_ROW_10	74752
+#define MAP_11_ROW_11	74816
+#define MAP_11_ROW_12	66656
+#define MAP_11_ROW_13	35320
+#define MAP_11_ROW_14	29692
+*/
+
+
+#define MAP_11_ROW_02	260160
+#define MAP_11_ROW_03	202864
+#define MAP_11_ROW_04	133240
+#define MAP_11_ROW_05	133228
+#define MAP_11_ROW_06	149600
+#define MAP_11_ROW_07	149568
+#define MAP_11_ROW_08	16384
+#define MAP_11_ROW_09	16480
+#define MAP_11_ROW_10	149504
+#define MAP_11_ROW_11	149568
+#define MAP_11_ROW_12	133216
+#define MAP_11_ROW_13	203256
+#define MAP_11_ROW_14	261116
+
+
+
+#define MAP_12_ROW_02	0
+#define MAP_12_ROW_03	40992
+#define MAP_12_ROW_04	110672
+#define MAP_12_ROW_05	86264
+#define MAP_12_ROW_06	86152
+#define MAP_12_ROW_07	69768
+#define MAP_12_ROW_08	0
+#define MAP_12_ROW_09	0
+#define MAP_12_ROW_10	116280
+#define MAP_12_ROW_11	139536
+#define MAP_12_ROW_12	139536
+#define MAP_12_ROW_13	139536
+#define MAP_12_ROW_14	116280
+
+
+// AGAIN
+#define MAP_13_ROW_02	1792
+#define MAP_13_ROW_03	2176
+#define MAP_13_ROW_04	131204
+#define MAP_13_ROW_05	334986
+#define MAP_13_ROW_06	1018015
+#define MAP_13_ROW_07	558865
+#define MAP_13_ROW_08	557073
+#define MAP_13_ROW_09	0
+#define MAP_13_ROW_10	69744
+#define MAP_13_ROW_11	77856
+#define MAP_13_ROW_12	86048
+#define MAP_13_ROW_13	102432
+#define MAP_13_ROW_14	69744
+
+
+
+#define MAP_14_ROW_02	0
+#define MAP_14_ROW_03	268674
+#define MAP_14_ROW_04	140868
+#define MAP_14_ROW_05	75336
+#define MAP_14_ROW_06	32784
+#define MAP_14_ROW_07	0
+#define MAP_14_ROW_08	16416
+#define MAP_14_ROW_09	0
+#define MAP_14_ROW_10	32784
+#define MAP_14_ROW_11	67080
+#define MAP_14_ROW_12	134916
+#define MAP_14_ROW_13	278562
+#define MAP_14_ROW_14	57456
+
+
+
+#define MAP_15_ROW_02	260604
+#define MAP_15_ROW_03	149796
+#define MAP_15_ROW_04	133380
+#define MAP_15_ROW_05	16416
+#define MAP_15_ROW_06	592137
+#define MAP_15_ROW_07	278562
+#define MAP_15_ROW_08	329994
+#define MAP_15_ROW_09	278562
+#define MAP_15_ROW_10	592137
+#define MAP_15_ROW_11	16416
+#define MAP_15_ROW_12	133380
+#define MAP_15_ROW_13	149796
+#define MAP_15_ROW_14	260604
+
+#define MAP_16_ROW_02	0
+#define MAP_16_ROW_03	522750
+#define MAP_16_ROW_04	0
+#define MAP_16_ROW_05	73800
+#define MAP_16_ROW_06	258300
+#define MAP_16_ROW_07	448950
+#define MAP_16_ROW_08	522750
+#define MAP_16_ROW_09	387450
+#define MAP_16_ROW_10	338250
+#define MAP_16_ROW_11	0
+#define MAP_16_ROW_12	0
+#define MAP_16_ROW_13	522750
+#define MAP_16_ROW_14	0
+
+
+
+
+#define MAP_17_ROW_02	123896
+#define MAP_17_ROW_03	273048
+#define MAP_17_ROW_04	294912
+#define MAP_17_ROW_05	44887
+#define MAP_17_ROW_06	41040
+#define MAP_17_ROW_07	893014
+#define MAP_17_ROW_08	20
+#define MAP_17_ROW_09	798548
+#define MAP_17_ROW_10	8276
+#define MAP_17_ROW_11	308804
+#define MAP_17_ROW_12	303300
+#define MAP_17_ROW_13	296478
+#define MAP_17_ROW_14	34304
+
+
+#define MAP_18_ROW_02	0
+#define MAP_18_ROW_03	262146
+#define MAP_18_ROW_04	259068
+#define MAP_18_ROW_05	42064
+#define MAP_18_ROW_06	1024
+#define MAP_18_ROW_07	16416
+#define MAP_18_ROW_08	1040511
+#define MAP_18_ROW_09	16416
+#define MAP_18_ROW_10	512
+#define MAP_18_ROW_11	41552
+#define MAP_18_ROW_12	261372
+#define MAP_18_ROW_13	262146
+#define MAP_18_ROW_14	0
+
+
+#define MAP_19_ROW_02	0
+#define MAP_19_ROW_03	0
+#define MAP_19_ROW_04	260604
+#define MAP_19_ROW_05	133380
+#define MAP_19_ROW_06	149796
+#define MAP_19_ROW_07	19232
+#define MAP_19_ROW_08	213036
+#define MAP_19_ROW_09	19744
+#define MAP_19_ROW_10	149796
+#define MAP_19_ROW_11	133380
+#define MAP_19_ROW_12	260604
+#define MAP_19_ROW_13	0
+#define MAP_19_ROW_14	0
+
+
+#define MAP_20_ROW_02	0
+#define MAP_20_ROW_03	126840
+#define MAP_20_ROW_04	2304
+#define MAP_20_ROW_05	997839
+#define MAP_20_ROW_06	8256
+#define MAP_20_ROW_07	8256
+#define MAP_20_ROW_08	977271
+#define MAP_20_ROW_09	2304
+#define MAP_20_ROW_10	8064
+#define MAP_20_ROW_11	991311
+#define MAP_20_ROW_12	9792
+#define MAP_20_ROW_13	9792
+#define MAP_20_ROW_14	230940
+
+
+
+#define MAP_21_ROW_02	4224
+#define MAP_21_ROW_03	266370
+#define MAP_21_ROW_04	132612
+#define MAP_21_ROW_05	67080
+#define MAP_21_ROW_06	40848
+#define MAP_21_ROW_07	16416
+#define MAP_21_ROW_08	4224
+#define MAP_21_ROW_09	4224
+#define MAP_21_ROW_10	32784
+#define MAP_21_ROW_11	116280
+#define MAP_21_ROW_12	257916
+#define MAP_21_ROW_13	278562
+#define MAP_21_ROW_14	71304
+
+#define MAP_22_ROW_02	0
+#define MAP_22_ROW_03	278466
+#define MAP_22_ROW_04	393222
+#define MAP_22_ROW_05	464526
+#define MAP_22_ROW_06	98328
+#define MAP_22_ROW_07	51504
+#define MAP_22_ROW_08	0
+#define MAP_22_ROW_09	54960
+#define MAP_22_ROW_10	98328
+#define MAP_22_ROW_11	461070
+#define MAP_22_ROW_12	393222
+#define MAP_22_ROW_13	278466
+#define MAP_22_ROW_14	0
+
+
+
+
+
+#define MAP_23_ROW_02	34320
+#define MAP_23_ROW_03	262146
+#define MAP_23_ROW_04	257916
+#define MAP_23_ROW_05	116280
+#define MAP_23_ROW_06	32784
+#define MAP_23_ROW_07	2304
+#define MAP_23_ROW_08	35088
+#define MAP_23_ROW_09	2304
+#define MAP_23_ROW_10	32784
+#define MAP_23_ROW_11	116280
+#define MAP_23_ROW_12	257916
+#define MAP_23_ROW_13	262146
+#define MAP_23_ROW_14	34320
+
+
+#define MAP_24_ROW_02	0
+#define MAP_24_ROW_03	264450
+#define MAP_24_ROW_04	256380
+#define MAP_24_ROW_05	67848
+#define MAP_24_ROW_06	84264
+#define MAP_24_ROW_07	18720
+#define MAP_24_ROW_08	999471
+#define MAP_24_ROW_09	16416
+#define MAP_24_ROW_10	96744
+#define MAP_24_ROW_11	65544
+#define MAP_24_ROW_12	255612
+#define MAP_24_ROW_13	327698
+#define MAP_24_ROW_14	4224
+
+
+
+
+#define MAP_25_ROW_02	0
+#define MAP_25_ROW_03	135300
+#define MAP_25_ROW_04	338250
+#define MAP_25_ROW_05	141636
+#define MAP_25_ROW_06	4224
+#define MAP_25_ROW_07	131076
+#define MAP_25_ROW_08	327690
+#define MAP_25_ROW_09	139332
+#define MAP_25_ROW_10	14784
+#define MAP_25_ROW_11	140868
+#define MAP_25_ROW_12	331914
+#define MAP_25_ROW_13	134916
+#define MAP_25_ROW_14	0
+
+
+#define MAP_26_ROW_02	0
+#define MAP_26_ROW_03	524158
+#define MAP_26_ROW_04	15936
+#define MAP_26_ROW_05	1024192
+#define MAP_26_ROW_06	10700
+#define MAP_26_ROW_07	518604
+#define MAP_26_ROW_08	2508
+#define MAP_26_ROW_09	518336
+#define MAP_26_ROW_10	8768
+#define MAP_26_ROW_11	1025887
+#define MAP_26_ROW_12	8192
+#define MAP_26_ROW_13	522750
+#define MAP_26_ROW_14	0
+
+#define MAP_27_ROW_02	0
+#define MAP_27_ROW_03	3840
+#define MAP_27_ROW_04	12480
+#define MAP_27_ROW_05	1015839
+#define MAP_27_ROW_06	8256
+#define MAP_27_ROW_07	20640
+#define MAP_27_ROW_08	20640
+#define MAP_27_ROW_09	20640
+#define MAP_27_ROW_10	8256
+#define MAP_27_ROW_11	1015839
+#define MAP_27_ROW_12	16320
+#define MAP_27_ROW_13	4224
+#define MAP_27_ROW_14	3840
+
+
+
+
+
+#define MAP_28_ROW_02	32784
+#define MAP_28_ROW_03	409638
+#define MAP_28_ROW_04	409646
+#define MAP_28_ROW_05	81960
+#define MAP_28_ROW_06	81960
+#define MAP_28_ROW_07	790659
+#define MAP_28_ROW_08	81960
+#define MAP_28_ROW_09	81960
+#define MAP_28_ROW_10	790659
+#define MAP_28_ROW_11	81960
+#define MAP_28_ROW_12	475182
+#define MAP_28_ROW_13	409638
+#define MAP_28_ROW_14	32784
+
+
+#define MAP_29_ROW_02	0
+#define MAP_29_ROW_03	507966
+#define MAP_29_ROW_04	409638
+#define MAP_29_ROW_05	282786
+#define MAP_29_ROW_06	348330
+#define MAP_29_ROW_07	69768
+#define MAP_29_ROW_08	118968
+#define MAP_29_ROW_09	69768
+#define MAP_29_ROW_10	348330
+#define MAP_29_ROW_11	282786
+#define MAP_29_ROW_12	409638
+#define MAP_29_ROW_13	507966
+#define MAP_29_ROW_14	0
+
+
+#define MAP_30_ROW_02	0
+#define MAP_30_ROW_03	495390
+#define MAP_30_ROW_04	270402
+#define MAP_30_ROW_05	268674
+#define MAP_30_ROW_06	331914
+#define MAP_30_ROW_07	294930
+#define MAP_30_ROW_08	20640
+#define MAP_30_ROW_09	266370
+#define MAP_30_ROW_10	262146
+#define MAP_30_ROW_11	326130
+#define MAP_30_ROW_12	262146
+#define MAP_30_ROW_13	495390
+#define MAP_30_ROW_14	0
+
+
+
+#define MAP_31_ROW_02	30208
+#define MAP_31_ROW_03	484878
+#define MAP_31_ROW_04	214764
+#define MAP_31_ROW_05	86632
+#define MAP_31_ROW_06	86568
+#define MAP_31_ROW_07	69800
+#define MAP_31_ROW_08	20640
+#define MAP_31_ROW_09	87176
+#define MAP_31_ROW_10	83112
+#define MAP_31_ROW_11	91816
+#define MAP_31_ROW_12	226860
+#define MAP_31_ROW_13	460398
+#define MAP_31_ROW_14	1760
+
+
+
+#define MAP_32_ROW_02	8256
+#define MAP_32_ROW_03	270402
+#define MAP_32_ROW_04	458766
+#define MAP_32_ROW_05	513726
+#define MAP_32_ROW_06	0
+#define MAP_32_ROW_07	794691
+#define MAP_32_ROW_08	172116
+#define MAP_32_ROW_09	794691
+#define MAP_32_ROW_10	0
+#define MAP_32_ROW_11	513726
+#define MAP_32_ROW_12	458766
+#define MAP_32_ROW_13	270402
+#define MAP_32_ROW_14	8256
+
+
+
+
+#define MAP_33_ROW_02	0
+#define MAP_33_ROW_03	508222
+#define MAP_33_ROW_04	262402
+#define MAP_33_ROW_05	327946
+#define MAP_33_ROW_06	298770
+#define MAP_33_ROW_07	278562
+#define MAP_33_ROW_08	0
+#define MAP_33_ROW_09	278562
+#define MAP_33_ROW_10	298770
+#define MAP_33_ROW_11	329738
+#define MAP_33_ROW_12	264194
+#define MAP_33_ROW_13	510014
+#define MAP_33_ROW_14	0
+
+
+
+#define MAP_34_ROW_02	0
+#define MAP_34_ROW_03	397446
+#define MAP_34_ROW_04	462990
+#define MAP_34_ROW_05	198156
+#define MAP_34_ROW_06	37008
+#define MAP_34_ROW_07	16416
+#define MAP_34_ROW_08	987279
+#define MAP_34_ROW_09	16416
+#define MAP_34_ROW_10	38544
+#define MAP_34_ROW_11	196620
+#define MAP_34_ROW_12	461070
+#define MAP_34_ROW_13	395526
+#define MAP_34_ROW_14	0
+
+#define MAP_35_ROW_02	0
+#define MAP_35_ROW_03	516222
+#define MAP_35_ROW_04	268674
+#define MAP_35_ROW_05	0
+#define MAP_35_ROW_06	917499
+#define MAP_35_ROW_07	0
+#define MAP_35_ROW_08	81960
+#define MAP_35_ROW_09	221292
+#define MAP_35_ROW_10	405702
+#define MAP_35_ROW_11	270210
+#define MAP_35_ROW_12	393222
+#define MAP_35_ROW_13	522750
+#define MAP_35_ROW_14	0
+
+
+
+
+
+
+#define MAP_36_ROW_02	0
+#define MAP_36_ROW_03	458766
+#define MAP_36_ROW_04	270402
+#define MAP_36_ROW_05	294930
+#define MAP_36_ROW_06	274242
+#define MAP_36_ROW_07	294930
+#define MAP_36_ROW_08	270402
+#define MAP_36_ROW_09	294930
+#define MAP_36_ROW_10	274242
+#define MAP_36_ROW_11	294930
+#define MAP_36_ROW_12	270402
+#define MAP_36_ROW_13	458766
+#define MAP_36_ROW_14	0
+
+
+#define MAP_37_ROW_02	0
+#define MAP_37_ROW_03	520446
+#define MAP_37_ROW_04	278562
+#define MAP_37_ROW_05	348330
+#define MAP_37_ROW_06	69768
+#define MAP_37_ROW_07	20640
+#define MAP_37_ROW_08	278562
+#define MAP_37_ROW_09	69768
+#define MAP_37_ROW_10	86184
+#define MAP_37_ROW_11	282786
+#define MAP_37_ROW_12	262146
+#define MAP_37_ROW_13	520446
+#define MAP_37_ROW_14	0
+
+
+#define MAP_38_ROW_02	0
+#define MAP_38_ROW_03	507966
+#define MAP_38_ROW_04	278562
+#define MAP_38_ROW_05	278562
+#define MAP_38_ROW_06	278562
+#define MAP_38_ROW_07	278562
+#define MAP_38_ROW_08	278562
+#define MAP_38_ROW_09	507966
+#define MAP_38_ROW_10	0
+#define MAP_38_ROW_11	229404
+#define MAP_38_ROW_12	229404
+#define MAP_38_ROW_13	233244
+#define MAP_38_ROW_14	1536
+
+
+
+
+
+
+#define MAP_39_ROW_02	65544
+#define MAP_39_ROW_03	268674
+#define MAP_39_ROW_04	76104
+#define MAP_39_ROW_05	274562
+#define MAP_39_ROW_06	65608
+#define MAP_39_ROW_07	270338
+#define MAP_39_ROW_08	73800
+#define MAP_39_ROW_09	262210
+#define MAP_39_ROW_10	69384
+#define MAP_39_ROW_11	266370
+#define MAP_39_ROW_12	77640
+#define MAP_39_ROW_13	274626
+#define MAP_39_ROW_14	81960
+
+
+
+
+#define MAP_40_ROW_02	0
+#define MAP_40_ROW_03	393218
+#define MAP_40_ROW_04	397062
+#define MAP_40_ROW_05	476718
+#define MAP_40_ROW_06	24672
+#define MAP_40_ROW_07	278562
+#define MAP_40_ROW_08	69768
+#define MAP_40_ROW_09	278562
+#define MAP_40_ROW_10	24672
+#define MAP_40_ROW_11	476718
+#define MAP_40_ROW_12	397062
+#define MAP_40_ROW_13	262146
+#define MAP_40_ROW_14	0
+
+
+
+#define MAP_41_ROW_02	1536
+#define MAP_41_ROW_03	521982
+#define MAP_41_ROW_04	263682
+#define MAP_41_ROW_05	270402
+#define MAP_41_ROW_06	270402
+#define MAP_41_ROW_07	8256
+#define MAP_41_ROW_08	1024095
+#define MAP_41_ROW_09	8256
+#define MAP_41_ROW_10	270402
+#define MAP_41_ROW_11	270402
+#define MAP_41_ROW_12	263682
+#define MAP_41_ROW_13	521982
+#define MAP_41_ROW_14	1536
+
+
+#define MAP_42_ROW_02	16416
+#define MAP_42_ROW_03	278562
+#define MAP_42_ROW_04	65544
+#define MAP_42_ROW_05	278562
+#define MAP_42_ROW_06	65544
+#define MAP_42_ROW_07	278562
+#define MAP_42_ROW_08	65544
+#define MAP_42_ROW_09	278562
+#define MAP_42_ROW_10	65544
+#define MAP_42_ROW_11	278562
+#define MAP_42_ROW_12	65544
+#define MAP_42_ROW_13	278562
+#define MAP_42_ROW_14	16416
+
+
+#define MAP_43_ROW_02	133412
+#define MAP_43_ROW_03	133412
+#define MAP_43_ROW_04	260412
+#define MAP_43_ROW_05	134916
+#define MAP_43_ROW_06	149796
+#define MAP_43_ROW_07	18720
+#define MAP_43_ROW_08	213036
+#define MAP_43_ROW_09	20256
+#define MAP_43_ROW_10	149796
+#define MAP_43_ROW_11	133380
+#define MAP_43_ROW_12	260412
+#define MAP_43_ROW_13	133412
+#define MAP_43_ROW_14	133412
+
+
+
+#define MAP_44_ROW_02	8256
+#define MAP_44_ROW_03	499806
+#define MAP_44_ROW_04	499806
+#define MAP_44_ROW_05	499806
+#define MAP_44_ROW_06	73800
+#define MAP_44_ROW_07	851979
+#define MAP_44_ROW_08	860235
+#define MAP_44_ROW_09	851979
+#define MAP_44_ROW_10	73800
+#define MAP_44_ROW_11	499806
+#define MAP_44_ROW_12	499806
+#define MAP_44_ROW_13	499806
+#define MAP_44_ROW_14	8256
+
+
+// flipped upsidedown face
+#define MAP_45_ROW_14	0
+#define MAP_45_ROW_13	521982
+#define MAP_45_ROW_12	263682
+#define MAP_45_ROW_11	393210
+#define MAP_45_ROW_10	262146
+#define MAP_45_ROW_09	520446
+#define MAP_45_ROW_08	0
+#define MAP_45_ROW_07	521982
+#define MAP_45_ROW_06	263682
+#define MAP_45_ROW_05	390906
+#define MAP_45_ROW_04	366234
+#define MAP_45_ROW_03	390906
+#define MAP_45_ROW_02	0
+
+
+
+#define MAP_46_ROW_02	0
+#define MAP_46_ROW_03	263682
+#define MAP_46_ROW_04	139140
+#define MAP_46_ROW_05	65544
+#define MAP_46_ROW_06	32784
+#define MAP_46_ROW_07	8256
+#define MAP_46_ROW_08	24672
+#define MAP_46_ROW_09	8256
+#define MAP_46_ROW_10	32784
+#define MAP_46_ROW_11	65544
+#define MAP_46_ROW_12	139140
+#define MAP_46_ROW_13	263682
+#define MAP_46_ROW_14	0
+
+
+#define MAP_47_ROW_02	0
+#define MAP_47_ROW_03	262146
+#define MAP_47_ROW_04	132612
+#define MAP_47_ROW_05	65544
+#define MAP_47_ROW_06	39312
+#define MAP_47_ROW_07	8256
+#define MAP_47_ROW_08	26976
+#define MAP_47_ROW_09	8256
+#define MAP_47_ROW_10	38544
+#define MAP_47_ROW_11	65544
+#define MAP_47_ROW_12	136836
+#define MAP_47_ROW_13	262146
+#define MAP_47_ROW_14	3840
+
+
+#define MAP_48_ROW_02	32784
+#define MAP_48_ROW_03	278562
+#define MAP_48_ROW_04	139332
+#define MAP_48_ROW_05	69768
+#define MAP_48_ROW_06	32784
+#define MAP_48_ROW_07	0
+#define MAP_48_ROW_08	8256
+#define MAP_48_ROW_09	17952
+#define MAP_48_ROW_10	35088
+#define MAP_48_ROW_11	69768
+#define MAP_48_ROW_12	139332
+#define MAP_48_ROW_13	278562
+#define MAP_48_ROW_14	32784
+
+
+
+
+#define MAP_49_ROW_02	57456
+#define MAP_49_ROW_03	110808
+#define MAP_49_ROW_04	69768
+#define MAP_49_ROW_05	110808
+#define MAP_49_ROW_06	57456
+#define MAP_49_ROW_07	0
+#define MAP_49_ROW_08	65544
+#define MAP_49_ROW_09	165396
+#define MAP_49_ROW_10	151332
+#define MAP_49_ROW_11	73800
+#define MAP_49_ROW_12	40848
+#define MAP_49_ROW_13	16416
+#define MAP_49_ROW_14	16320
+
+
+
+#define MAP_50_ROW_02	0
+#define MAP_50_ROW_03	465982
+#define MAP_50_ROW_04	396387
+#define MAP_50_ROW_05	332873
+#define MAP_50_ROW_06	41181
+#define MAP_50_ROW_07	57641
+#define MAP_50_ROW_08	16817
+#define MAP_50_ROW_09	57769
+#define MAP_50_ROW_10	41245
+#define MAP_50_ROW_11	333001
+#define MAP_50_ROW_12	396387
+#define MAP_50_ROW_13	465982
+#define MAP_50_ROW_14	0
+
+
+#define MAP_51_ROW_02	0
+#define MAP_51_ROW_03	518270
+#define MAP_51_ROW_04	419942
+#define MAP_51_ROW_05	518210
+#define MAP_51_ROW_06	2370
+#define MAP_51_ROW_07	518466
+#define MAP_51_ROW_08	420198
+#define MAP_51_ROW_09	272766
+#define MAP_51_ROW_10	272640
+#define MAP_51_ROW_11	270718
+#define MAP_51_ROW_12	418150
+#define MAP_51_ROW_13	516478
+#define MAP_51_ROW_14	0
+
+
+
+
+
+
+
+
+
+
+
+
+#define MFFF 0xFF // 1398101 //0xFFFFFFFF
+#define M0 0xAAAA // 0b 01010101010101010  // 0B 1010 1010 1010 1010
+#define M1 349525 //  0B 0101 0101 01010101
+#define M2 0xFFFF //  0B 0101 0101 01010101
+#define WALLS 35072 //  0B 0101 0101 01010101
+#define M4 0 //  0B 0101 0101 01010101
+
+
+
+u32 g_cur_map[MAX_LEVEL+1][15] = {
+
+		// 0 - skipped
+		{
+
+				0, // 16pixels skip 0
+				0, // 32pixels skip 1
+
+				MAP_00_ROW_02,
+				MAP_00_ROW_03,
+				MAP_00_ROW_04,
+				MAP_00_ROW_05,
+				MAP_00_ROW_06,
+				MAP_00_ROW_07,
+				MAP_00_ROW_08,
+				MAP_00_ROW_09,
+				MAP_00_ROW_10,
+				MAP_00_ROW_11,
+				MAP_00_ROW_12,
+				MAP_00_ROW_13,
+				MAP_00_ROW_14
+		},
+
+		// 1
+		{
+				0, // 16pixels skip 0
+				0, // 32pixels skip 1
+
+				MAP_01_ROW_02,
+				MAP_01_ROW_03,
+				MAP_01_ROW_04,
+				MAP_01_ROW_05,
+				MAP_01_ROW_06,
+				MAP_01_ROW_07,
+				MAP_01_ROW_08,
+				MAP_01_ROW_09,
+				MAP_01_ROW_10,
+				MAP_01_ROW_11,
+				MAP_01_ROW_12,
+				MAP_01_ROW_13,
+				MAP_01_ROW_14
+		},
+
+		// 2
+		{
+				0, // 16pixels skip 0
+				0, // 32pixels skip 1
+
+
+				MAP_02_ROW_02,
+				MAP_02_ROW_03,
+				MAP_02_ROW_04,
+				MAP_02_ROW_05,
+				MAP_02_ROW_06,
+				MAP_02_ROW_07,
+				MAP_02_ROW_08,
+				MAP_02_ROW_09,
+				MAP_02_ROW_10,
+				MAP_02_ROW_11,
+				MAP_02_ROW_12,
+				MAP_02_ROW_13,
+				MAP_02_ROW_14
+		},
+
+
+		// 3
+		{
+				0, // 16pixels skip 0
+				0, // 32pixels skip 1
+
+				MAP_03_ROW_02,
+				MAP_03_ROW_03,
+				MAP_03_ROW_04,
+				MAP_03_ROW_05,
+				MAP_03_ROW_06,
+				MAP_03_ROW_07,
+				MAP_03_ROW_08,
+				MAP_03_ROW_09,
+				MAP_03_ROW_10,
+				MAP_03_ROW_11,
+				MAP_03_ROW_12,
+				MAP_03_ROW_13,
+				MAP_03_ROW_14
+		},
+		//4
+		{
+				0, // 16pixels skip 0
+				0, // 32pixels skip 1
+
+				MAP_04_ROW_02,
+				MAP_04_ROW_03,
+				MAP_04_ROW_04,
+				MAP_04_ROW_05,
+				MAP_04_ROW_06,
+				MAP_04_ROW_07,
+				MAP_04_ROW_08,
+				MAP_04_ROW_09,
+				MAP_04_ROW_10,
+				MAP_04_ROW_11,
+				MAP_04_ROW_12,
+				MAP_04_ROW_13,
+				MAP_04_ROW_14
+		},
+
+		// 5
+		{
+				0, // 16pixels skip 0
+				0, // 32pixels skip 1
+
+				MAP_05_ROW_02,
+				MAP_05_ROW_03,
+				MAP_05_ROW_04,
+				MAP_05_ROW_05,
+				MAP_05_ROW_06,
+				MAP_05_ROW_07,
+				MAP_05_ROW_08,
+				MAP_05_ROW_09,
+				MAP_05_ROW_10,
+				MAP_05_ROW_11,
+				MAP_05_ROW_12,
+				MAP_05_ROW_13,
+				MAP_05_ROW_14
+		},
+
+
+		// 6
+		{
+
+				0, // 16pixels skip 0
+				0, // 32pixels skip 1
+
+
+
+				MAP_06_ROW_02,
+				MAP_06_ROW_03,
+				MAP_06_ROW_04,
+				MAP_06_ROW_05,
+				MAP_06_ROW_06,
+				MAP_06_ROW_07,
+				MAP_06_ROW_08,
+				MAP_06_ROW_09,
+				MAP_06_ROW_10,
+				MAP_06_ROW_11,
+				MAP_06_ROW_12,
+				MAP_06_ROW_13,
+				MAP_06_ROW_14
+		},
+
+		// 7
+		{
+
+				0, // 16pixels skip 0
+				0, // 32pixels skip 1
+
+
+				MAP_07_ROW_02,
+				MAP_07_ROW_03,
+				MAP_07_ROW_04,
+				MAP_07_ROW_05,
+				MAP_07_ROW_06,
+				MAP_07_ROW_07,
+				MAP_07_ROW_08,
+				MAP_07_ROW_09,
+				MAP_07_ROW_10,
+				MAP_07_ROW_11,
+				MAP_07_ROW_12,
+				MAP_07_ROW_13,
+				MAP_07_ROW_14
+		},
+
+		// 8
+		{
+
+				0, // 16pixels skip 0
+				0, // 32pixels skip 1
+
+
+
+
+				MAP_08_ROW_02,
+				MAP_08_ROW_03,
+				MAP_08_ROW_04,
+				MAP_08_ROW_05,
+				MAP_08_ROW_06,
+				MAP_08_ROW_07,
+				MAP_08_ROW_08,
+				MAP_08_ROW_09,
+				MAP_08_ROW_10,
+				MAP_08_ROW_11,
+				MAP_08_ROW_12,
+				MAP_08_ROW_13,
+				MAP_08_ROW_14
+		},
+
+
+		// 9
+		{
+
+				0, // 16pixels skip 0
+				0, // 32pixels skip 1
+
+
+
+
+
+				MAP_09_ROW_02,
+				MAP_09_ROW_03,
+				MAP_09_ROW_04,
+				MAP_09_ROW_05,
+				MAP_09_ROW_06,
+				MAP_09_ROW_07,
+				MAP_09_ROW_08,
+				MAP_09_ROW_09,
+				MAP_09_ROW_10,
+				MAP_09_ROW_11,
+				MAP_09_ROW_12,
+				MAP_09_ROW_13,
+				MAP_09_ROW_14
+		},
+
+		// 10
+		{
+
+				0, // 16pixels skip 0
+				0, // 32pixels skip 1
+
+				MAP_10_ROW_02,
+				MAP_10_ROW_03,
+				MAP_10_ROW_04,
+				MAP_10_ROW_05,
+				MAP_10_ROW_06,
+				MAP_10_ROW_07,
+				MAP_10_ROW_08,
+				MAP_10_ROW_09,
+				MAP_10_ROW_10,
+				MAP_10_ROW_11,
+				MAP_10_ROW_12,
+				MAP_10_ROW_13,
+				MAP_10_ROW_14
+		},
+
+		// 11
+		{
+
+				0, // 16pixels skip 0
+				0, // 32pixels skip 1
+
+
+
+				MAP_11_ROW_02,
+				MAP_11_ROW_03,
+				MAP_11_ROW_04,
+				MAP_11_ROW_05,
+				MAP_11_ROW_06,
+				MAP_11_ROW_07,
+				MAP_11_ROW_08,
+				MAP_11_ROW_09,
+				MAP_11_ROW_10,
+				MAP_11_ROW_11,
+				MAP_11_ROW_12,
+				MAP_11_ROW_13,
+				MAP_11_ROW_14
+		},
+
+
+		// 12
+		{
+
+				0, // 16pixels skip 0
+				0, // 32pixels skip 1
+
+
+
+				MAP_12_ROW_02,
+				MAP_12_ROW_03,
+				MAP_12_ROW_04,
+				MAP_12_ROW_05,
+				MAP_12_ROW_06,
+				MAP_12_ROW_07,
+				MAP_12_ROW_08,
+				MAP_12_ROW_09,
+				MAP_12_ROW_10,
+				MAP_12_ROW_11,
+				MAP_12_ROW_12,
+				MAP_12_ROW_13,
+				MAP_12_ROW_14
+		},
+
+
+		// 13
+		{
+
+				0, // 16pixels skip 0
+				0, // 32pixels skip 1
+
+
+
+				MAP_13_ROW_02,
+				MAP_13_ROW_03,
+				MAP_13_ROW_04,
+				MAP_13_ROW_05,
+				MAP_13_ROW_06,
+				MAP_13_ROW_07,
+				MAP_13_ROW_08,
+				MAP_13_ROW_09,
+				MAP_13_ROW_10,
+				MAP_13_ROW_11,
+				MAP_13_ROW_12,
+				MAP_13_ROW_13,
+				MAP_13_ROW_14
+		},
+
+
+		// 14
+		{
+
+				0, // 16pixels skip 0
+				0, // 32pixels skip 1
+
+
+
+				MAP_14_ROW_02,
+				MAP_14_ROW_03,
+				MAP_14_ROW_04,
+				MAP_14_ROW_05,
+				MAP_14_ROW_06,
+				MAP_14_ROW_07,
+				MAP_14_ROW_08,
+				MAP_14_ROW_09,
+				MAP_14_ROW_10,
+				MAP_14_ROW_11,
+				MAP_14_ROW_12,
+				MAP_14_ROW_13,
+				MAP_14_ROW_14
+		},
+
+		//15
+
+
+		{
+
+				0, // 16pixels skip 0
+				0, // 32pixels skip 1
+
+
+				MAP_15_ROW_02,
+				MAP_15_ROW_03,
+				MAP_15_ROW_04,
+				MAP_15_ROW_05,
+				MAP_15_ROW_06,
+				MAP_15_ROW_07,
+				MAP_15_ROW_08,
+				MAP_15_ROW_09,
+				MAP_15_ROW_10,
+				MAP_15_ROW_11,
+				MAP_15_ROW_12,
+				MAP_15_ROW_13,
+				MAP_15_ROW_14
+		},
+
+		// 16
+		{
+
+				0, // 16pixels skip 0
+				0, // 32pixels skip 1
+
+
+				MAP_16_ROW_02,
+				MAP_16_ROW_03,
+				MAP_16_ROW_04,
+				MAP_16_ROW_05,
+				MAP_16_ROW_06,
+				MAP_16_ROW_07,
+				MAP_16_ROW_08,
+				MAP_16_ROW_09,
+				MAP_16_ROW_10,
+				MAP_16_ROW_11,
+				MAP_16_ROW_12,
+				MAP_16_ROW_13,
+				MAP_16_ROW_14
+		},
+
+
+		// 17
+		{
+
+				0, // 16pixels skip 0
+				0, // 32pixels skip 1
+
+
+				MAP_17_ROW_02,
+				MAP_17_ROW_03,
+				MAP_17_ROW_04,
+				MAP_17_ROW_05,
+				MAP_17_ROW_06,
+				MAP_17_ROW_07,
+				MAP_17_ROW_08,
+				MAP_17_ROW_09,
+				MAP_17_ROW_10,
+				MAP_17_ROW_11,
+				MAP_17_ROW_12,
+				MAP_17_ROW_13,
+				MAP_17_ROW_14
+		},
+
+		// 18
+		{
+
+				0, // 16pixels skip 0
+				0, // 32pixels skip 1
+
+
+				MAP_18_ROW_02,
+				MAP_18_ROW_03,
+				MAP_18_ROW_04,
+				MAP_18_ROW_05,
+				MAP_18_ROW_06,
+				MAP_18_ROW_07,
+				MAP_18_ROW_08,
+				MAP_18_ROW_09,
+				MAP_18_ROW_10,
+				MAP_18_ROW_11,
+				MAP_18_ROW_12,
+				MAP_18_ROW_13,
+				MAP_18_ROW_14
+		},
+
+
+		// 19
+		{
+
+				0, // 16pixels skip 0
+				0, // 32pixels skip 1
+
+
+				MAP_19_ROW_02,
+				MAP_19_ROW_03,
+				MAP_19_ROW_04,
+				MAP_19_ROW_05,
+				MAP_19_ROW_06,
+				MAP_19_ROW_07,
+				MAP_19_ROW_08,
+				MAP_19_ROW_09,
+				MAP_19_ROW_10,
+				MAP_19_ROW_11,
+				MAP_19_ROW_12,
+				MAP_19_ROW_13,
+				MAP_19_ROW_14
+		},
+
+
+		// 20
+		{
+
+				0, // 16pixels skip 0
+				0, // 32pixels skip 1
+
+
+				MAP_20_ROW_02,
+				MAP_20_ROW_03,
+				MAP_20_ROW_04,
+				MAP_20_ROW_05,
+				MAP_20_ROW_06,
+				MAP_20_ROW_07,
+				MAP_20_ROW_08,
+				MAP_20_ROW_09,
+				MAP_20_ROW_10,
+				MAP_20_ROW_11,
+				MAP_20_ROW_12,
+				MAP_20_ROW_13,
+				MAP_20_ROW_14
+		},
+
+
+		// 21
+		{
+
+				0, // 16pixels skip 0
+				0, // 32pixels skip 1
+
+
+				MAP_21_ROW_02,
+				MAP_21_ROW_03,
+				MAP_21_ROW_04,
+				MAP_21_ROW_05,
+				MAP_21_ROW_06,
+				MAP_21_ROW_07,
+				MAP_21_ROW_08,
+				MAP_21_ROW_09,
+				MAP_21_ROW_10,
+				MAP_21_ROW_11,
+				MAP_21_ROW_12,
+				MAP_21_ROW_13,
+				MAP_21_ROW_14
+		},
+
+		// 22
+		{
+
+				0, // 16pixels skip 0
+				0, // 32pixels skip 1
+
+
+				MAP_22_ROW_02,
+				MAP_22_ROW_03,
+				MAP_22_ROW_04,
+				MAP_22_ROW_05,
+				MAP_22_ROW_06,
+				MAP_22_ROW_07,
+				MAP_22_ROW_08,
+				MAP_22_ROW_09,
+				MAP_22_ROW_10,
+				MAP_22_ROW_11,
+				MAP_22_ROW_12,
+				MAP_22_ROW_13,
+				MAP_22_ROW_14
+		},
+
+		// 23
+		{
+
+				0, // 16pixels skip 0
+				0, // 32pixels skip 1
+
+
+				MAP_23_ROW_02,
+				MAP_23_ROW_03,
+				MAP_23_ROW_04,
+				MAP_23_ROW_05,
+				MAP_23_ROW_06,
+				MAP_23_ROW_07,
+				MAP_23_ROW_08,
+				MAP_23_ROW_09,
+				MAP_23_ROW_10,
+				MAP_23_ROW_11,
+				MAP_23_ROW_12,
+				MAP_23_ROW_13,
+				MAP_23_ROW_14
+		},
+
+		// 24
+		{
+
+				0, // 16pixels skip 0
+				0, // 32pixels skip 1
+
+
+				MAP_24_ROW_02,
+				MAP_24_ROW_03,
+				MAP_24_ROW_04,
+				MAP_24_ROW_05,
+				MAP_24_ROW_06,
+				MAP_24_ROW_07,
+				MAP_24_ROW_08,
+				MAP_24_ROW_09,
+				MAP_24_ROW_10,
+				MAP_24_ROW_11,
+				MAP_24_ROW_12,
+				MAP_24_ROW_13,
+				MAP_24_ROW_14
+		},
+
+		// 25
+		{
+
+				0, // 16pixels skip 0
+				0, // 32pixels skip 1
+
+
+				MAP_25_ROW_02,
+				MAP_25_ROW_03,
+				MAP_25_ROW_04,
+				MAP_25_ROW_05,
+				MAP_25_ROW_06,
+				MAP_25_ROW_07,
+				MAP_25_ROW_08,
+				MAP_25_ROW_09,
+				MAP_25_ROW_10,
+				MAP_25_ROW_11,
+				MAP_25_ROW_12,
+				MAP_25_ROW_13,
+				MAP_25_ROW_14
+		},
+
+
+		// 26
+		{
+
+				0, // 16pixels skip 0
+				0, // 32pixels skip 1
+
+
+				MAP_26_ROW_02,
+				MAP_26_ROW_03,
+				MAP_26_ROW_04,
+				MAP_26_ROW_05,
+				MAP_26_ROW_06,
+				MAP_26_ROW_07,
+				MAP_26_ROW_08,
+				MAP_26_ROW_09,
+				MAP_26_ROW_10,
+				MAP_26_ROW_11,
+				MAP_26_ROW_12,
+				MAP_26_ROW_13,
+				MAP_26_ROW_14
+		},
+
+		// 27
+		{
+
+				0, // 16pixels skip 0
+				0, // 32pixels skip 1
+
+
+				MAP_27_ROW_02,
+				MAP_27_ROW_03,
+				MAP_27_ROW_04,
+				MAP_27_ROW_05,
+				MAP_27_ROW_06,
+				MAP_27_ROW_07,
+				MAP_27_ROW_08,
+				MAP_27_ROW_09,
+				MAP_27_ROW_10,
+				MAP_27_ROW_11,
+				MAP_27_ROW_12,
+				MAP_27_ROW_13,
+				MAP_27_ROW_14
+		},
+
+
+		// 28
+		{
+
+				0, // 16pixels skip 0
+				0, // 32pixels skip 1
+
+
+				MAP_28_ROW_02,
+				MAP_28_ROW_03,
+				MAP_28_ROW_04,
+				MAP_28_ROW_05,
+				MAP_28_ROW_06,
+				MAP_28_ROW_07,
+				MAP_28_ROW_08,
+				MAP_28_ROW_09,
+				MAP_28_ROW_10,
+				MAP_28_ROW_11,
+				MAP_28_ROW_12,
+				MAP_28_ROW_13,
+				MAP_28_ROW_14
+		},
+
+		// 29
+		{
+
+				0, // 16pixels skip 0
+				0, // 32pixels skip 1
+
+
+				MAP_29_ROW_02,
+				MAP_29_ROW_03,
+				MAP_29_ROW_04,
+				MAP_29_ROW_05,
+				MAP_29_ROW_06,
+				MAP_29_ROW_07,
+				MAP_29_ROW_08,
+				MAP_29_ROW_09,
+				MAP_29_ROW_10,
+				MAP_29_ROW_11,
+				MAP_29_ROW_12,
+				MAP_29_ROW_13,
+				MAP_29_ROW_14
+		},
+
+		// 30
+		{
+
+				0, // 16pixels skip 0
+				0, // 32pixels skip 1
+
+
+				MAP_30_ROW_02,
+				MAP_30_ROW_03,
+				MAP_30_ROW_04,
+				MAP_30_ROW_05,
+				MAP_30_ROW_06,
+				MAP_30_ROW_07,
+				MAP_30_ROW_08,
+				MAP_30_ROW_09,
+				MAP_30_ROW_10,
+				MAP_30_ROW_11,
+				MAP_30_ROW_12,
+				MAP_30_ROW_13,
+				MAP_30_ROW_14
+		},
+
+
+		// 31
+		{
+
+				0, // 16pixels skip 0
+				0, // 32pixels skip 1
+
+
+				MAP_31_ROW_02,
+				MAP_31_ROW_03,
+				MAP_31_ROW_04,
+				MAP_31_ROW_05,
+				MAP_31_ROW_06,
+				MAP_31_ROW_07,
+				MAP_31_ROW_08,
+				MAP_31_ROW_09,
+				MAP_31_ROW_10,
+				MAP_31_ROW_11,
+				MAP_31_ROW_12,
+				MAP_31_ROW_13,
+				MAP_31_ROW_14
+		},
+
+		// 32
+		{
+
+				0, // 16pixels skip 0
+				0, // 32pixels skip 1
+
+
+				MAP_32_ROW_02,
+				MAP_32_ROW_03,
+				MAP_32_ROW_04,
+				MAP_32_ROW_05,
+				MAP_32_ROW_06,
+				MAP_32_ROW_07,
+				MAP_32_ROW_08,
+				MAP_32_ROW_09,
+				MAP_32_ROW_10,
+				MAP_32_ROW_11,
+				MAP_32_ROW_12,
+				MAP_32_ROW_13,
+				MAP_32_ROW_14
+		},
+
+
+		// 33
+		{
+
+				0, // 16pixels skip 0
+				0, // 32pixels skip 1
+
+
+				MAP_33_ROW_02,
+				MAP_33_ROW_03,
+				MAP_33_ROW_04,
+				MAP_33_ROW_05,
+				MAP_33_ROW_06,
+				MAP_33_ROW_07,
+				MAP_33_ROW_08,
+				MAP_33_ROW_09,
+				MAP_33_ROW_10,
+				MAP_33_ROW_11,
+				MAP_33_ROW_12,
+				MAP_33_ROW_13,
+				MAP_33_ROW_14
+		},
+
+
+
+		// 34
+		{
+
+				0, // 16pixels skip 0
+				0, // 32pixels skip 1
+
+
+				MAP_34_ROW_02,
+				MAP_34_ROW_03,
+				MAP_34_ROW_04,
+				MAP_34_ROW_05,
+				MAP_34_ROW_06,
+				MAP_34_ROW_07,
+				MAP_34_ROW_08,
+				MAP_34_ROW_09,
+				MAP_34_ROW_10,
+				MAP_34_ROW_11,
+				MAP_34_ROW_12,
+				MAP_34_ROW_13,
+				MAP_34_ROW_14
+		},
+
+		// 35
+		{
+
+				0, // 16pixels skip 0
+				0, // 32pixels skip 1
+
+
+				MAP_35_ROW_02,
+				MAP_35_ROW_03,
+				MAP_35_ROW_04,
+				MAP_35_ROW_05,
+				MAP_35_ROW_06,
+				MAP_35_ROW_07,
+				MAP_35_ROW_08,
+				MAP_35_ROW_09,
+				MAP_35_ROW_10,
+				MAP_35_ROW_11,
+				MAP_35_ROW_12,
+				MAP_35_ROW_13,
+				MAP_35_ROW_14
+		},
+
+		// 36
+		{
+
+				0, // 16pixels skip 0
+				0, // 32pixels skip 1
+
+
+				MAP_36_ROW_02,
+				MAP_36_ROW_03,
+				MAP_36_ROW_04,
+				MAP_36_ROW_05,
+				MAP_36_ROW_06,
+				MAP_36_ROW_07,
+				MAP_36_ROW_08,
+				MAP_36_ROW_09,
+				MAP_36_ROW_10,
+				MAP_36_ROW_11,
+				MAP_36_ROW_12,
+				MAP_36_ROW_13,
+				MAP_36_ROW_14
+		},
+
+		// 37
+		{
+
+				0, // 16pixels skip 0
+				0, // 32pixels skip 1
+
+
+				MAP_37_ROW_02,
+				MAP_37_ROW_03,
+				MAP_37_ROW_04,
+				MAP_37_ROW_05,
+				MAP_37_ROW_06,
+				MAP_37_ROW_07,
+				MAP_37_ROW_08,
+				MAP_37_ROW_09,
+				MAP_37_ROW_10,
+				MAP_37_ROW_11,
+				MAP_37_ROW_12,
+				MAP_37_ROW_13,
+				MAP_37_ROW_14
+		},
+
+
+		// 38
+		{
+
+				0, // 16pixels skip 0
+				0, // 32pixels skip 1
+
+
+				MAP_38_ROW_02,
+				MAP_38_ROW_03,
+				MAP_38_ROW_04,
+				MAP_38_ROW_05,
+				MAP_38_ROW_06,
+				MAP_38_ROW_07,
+				MAP_38_ROW_08,
+				MAP_38_ROW_09,
+				MAP_38_ROW_10,
+				MAP_38_ROW_11,
+				MAP_38_ROW_12,
+				MAP_38_ROW_13,
+				MAP_38_ROW_14
+		},
+
+
+		// 39
+		{
+
+				0, // 16pixels skip 0
+				0, // 32pixels skip 1
+
+
+				MAP_39_ROW_02,
+				MAP_39_ROW_03,
+				MAP_39_ROW_04,
+				MAP_39_ROW_05,
+				MAP_39_ROW_06,
+				MAP_39_ROW_07,
+				MAP_39_ROW_08,
+				MAP_39_ROW_09,
+				MAP_39_ROW_10,
+				MAP_39_ROW_11,
+				MAP_39_ROW_12,
+				MAP_39_ROW_13,
+				MAP_39_ROW_14
+		},
+
+
+
+		// 40
+		{
+
+				0, // 16pixels skip 0
+				0, // 32pixels skip 1
+
+
+				MAP_40_ROW_02,
+				MAP_40_ROW_03,
+				MAP_40_ROW_04,
+				MAP_40_ROW_05,
+				MAP_40_ROW_06,
+				MAP_40_ROW_07,
+				MAP_40_ROW_08,
+				MAP_40_ROW_09,
+				MAP_40_ROW_10,
+				MAP_40_ROW_11,
+				MAP_40_ROW_12,
+				MAP_40_ROW_13,
+				MAP_40_ROW_14
+		},
+
+
+		// 41
+		{
+
+				0, // 16pixels skip 0
+				0, // 32pixels skip 1
+
+
+				MAP_41_ROW_02,
+				MAP_41_ROW_03,
+				MAP_41_ROW_04,
+				MAP_41_ROW_05,
+				MAP_41_ROW_06,
+				MAP_41_ROW_07,
+				MAP_41_ROW_08,
+				MAP_41_ROW_09,
+				MAP_41_ROW_10,
+				MAP_41_ROW_11,
+				MAP_41_ROW_12,
+				MAP_41_ROW_13,
+				MAP_41_ROW_14
+		},
+
+		// 42
+		{
+
+				0, // 16pixels skip 0
+				0, // 32pixels skip 1
+
+
+				MAP_42_ROW_02,
+				MAP_42_ROW_03,
+				MAP_42_ROW_04,
+				MAP_42_ROW_05,
+				MAP_42_ROW_06,
+				MAP_42_ROW_07,
+				MAP_42_ROW_08,
+				MAP_42_ROW_09,
+				MAP_42_ROW_10,
+				MAP_42_ROW_11,
+				MAP_42_ROW_12,
+				MAP_42_ROW_13,
+				MAP_42_ROW_14
+		},
+
+
+		// 43
+		{
+
+				0, // 16pixels skip 0
+				0, // 32pixels skip 1
+
+
+				MAP_43_ROW_02,
+				MAP_43_ROW_03,
+				MAP_43_ROW_04,
+				MAP_43_ROW_05,
+				MAP_43_ROW_06,
+				MAP_43_ROW_07,
+				MAP_43_ROW_08,
+				MAP_43_ROW_09,
+				MAP_43_ROW_10,
+				MAP_43_ROW_11,
+				MAP_43_ROW_12,
+				MAP_43_ROW_13,
+				MAP_43_ROW_14
+		},
+
+
+		// 44
+		{
+
+				0, // 16pixels skip 0
+				0, // 32pixels skip 1
+
+
+				MAP_44_ROW_02,
+				MAP_44_ROW_03,
+				MAP_44_ROW_04,
+				MAP_44_ROW_05,
+				MAP_44_ROW_06,
+				MAP_44_ROW_07,
+				MAP_44_ROW_08,
+				MAP_44_ROW_09,
+				MAP_44_ROW_10,
+				MAP_44_ROW_11,
+				MAP_44_ROW_12,
+				MAP_44_ROW_13,
+				MAP_44_ROW_14
+		},
+
+
+		// 45
+		{
+
+				0, // 16pixels skip 0
+				0, // 32pixels skip 1
+
+
+				MAP_45_ROW_02,
+				MAP_45_ROW_03,
+				MAP_45_ROW_04,
+				MAP_45_ROW_05,
+				MAP_45_ROW_06,
+				MAP_45_ROW_07,
+				MAP_45_ROW_08,
+				MAP_45_ROW_09,
+				MAP_45_ROW_10,
+				MAP_45_ROW_11,
+				MAP_45_ROW_12,
+				MAP_45_ROW_13,
+				MAP_45_ROW_14
+		},
+
+		// 46
+		{
+
+				0, // 16pixels skip 0
+				0, // 32pixels skip 1
+
+
+				MAP_46_ROW_02,
+				MAP_46_ROW_03,
+				MAP_46_ROW_04,
+				MAP_46_ROW_05,
+				MAP_46_ROW_06,
+				MAP_46_ROW_07,
+				MAP_46_ROW_08,
+				MAP_46_ROW_09,
+				MAP_46_ROW_10,
+				MAP_46_ROW_11,
+				MAP_46_ROW_12,
+				MAP_46_ROW_13,
+				MAP_46_ROW_14
+		},
+
+		// 47
+		{
+
+				0, // 16pixels skip 0
+				0, // 32pixels skip 1
+
+
+				MAP_47_ROW_02,
+				MAP_47_ROW_03,
+				MAP_47_ROW_04,
+				MAP_47_ROW_05,
+				MAP_47_ROW_06,
+				MAP_47_ROW_07,
+				MAP_47_ROW_08,
+				MAP_47_ROW_09,
+				MAP_47_ROW_10,
+				MAP_47_ROW_11,
+				MAP_47_ROW_12,
+				MAP_47_ROW_13,
+				MAP_47_ROW_14
+		},
+
+
+		// 48
+		{
+
+				0, // 16pixels skip 0
+				0, // 32pixels skip 1
+
+
+				MAP_48_ROW_02,
+				MAP_48_ROW_03,
+				MAP_48_ROW_04,
+				MAP_48_ROW_05,
+				MAP_48_ROW_06,
+				MAP_48_ROW_07,
+				MAP_48_ROW_08,
+				MAP_48_ROW_09,
+				MAP_48_ROW_10,
+				MAP_48_ROW_11,
+				MAP_48_ROW_12,
+				MAP_48_ROW_13,
+				MAP_48_ROW_14
+		},
+
+		// 49
+		{
+
+				0, // 16pixels skip 0
+				0, // 32pixels skip 1
+
+
+				MAP_49_ROW_02,
+				MAP_49_ROW_03,
+				MAP_49_ROW_04,
+				MAP_49_ROW_05,
+				MAP_49_ROW_06,
+				MAP_49_ROW_07,
+				MAP_49_ROW_08,
+				MAP_49_ROW_09,
+				MAP_49_ROW_10,
+				MAP_49_ROW_11,
+				MAP_49_ROW_12,
+				MAP_49_ROW_13,
+				MAP_49_ROW_14
+		},
+
+		// 50
+		{
+
+				0,0,
+
+
+				MAP_50_ROW_02,
+				MAP_50_ROW_03,
+				MAP_50_ROW_04,
+				MAP_50_ROW_05,
+				MAP_50_ROW_06,
+				MAP_50_ROW_07,
+				MAP_50_ROW_08,
+				MAP_50_ROW_09,
+				MAP_50_ROW_10,
+				MAP_50_ROW_11,
+				MAP_50_ROW_12,
+				MAP_50_ROW_13,
+				MAP_50_ROW_14
+		},
+
+		// 50 +1 shouldn't get here - just in case!
+
+		{
+
+				0,0,
+
+
+				MAP_51_ROW_02,
+				MAP_51_ROW_03,
+				MAP_51_ROW_04,
+				MAP_51_ROW_05,
+				MAP_51_ROW_06,
+				MAP_51_ROW_07,
+				MAP_51_ROW_08,
+				MAP_51_ROW_09,
+				MAP_51_ROW_10,
+				MAP_51_ROW_11,
+				MAP_51_ROW_12,
+				MAP_51_ROW_13,
+				MAP_51_ROW_14
+		}
+
+
+
+};
+
+#else
+
+extern t_data_head32 g_texture_map_shills[];
+extern t_data_head32 g_texture_map_haters[];
+
+#endif // #ifdef INST_AMICO_TEXTURES
+
+
+
+#ifdef __ANDROID__
+// ANDROID uses CPP not C
+} //extern "C"
+#endif
+
